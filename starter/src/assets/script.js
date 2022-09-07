@@ -46,38 +46,62 @@ const cart = [];
 */
 const addProductToCart = (productId) => {
   // get the correct product based on the productId
-  let product = products.find(e => e.productId === productId);
+  let product = products.find(item => item.productId === productId);
   // then increase the product's quantity by 1
-  product.quantity = product.quantity + 1;
+  product.quantity += 1; 
   // if the product is not already in the cart, add it to the cart
-  console.log(cart); 
-  if (cart.length == 0) {
-    cart.push(product);
-  } else if (cart.length > 0) {
-    cart.filter(cartItem => {
-      if (cartItem.productId !== product.productId) {
-        cart.push(product);
-      }
-    })
-  } 
-  return product
+  let isInCart = cart.find( cartItem => cartItem.productId === product.productId ); 
+  if ( isInCart === undefined ) {
+    cart.push( product );
+  }
+  return cart;
 }
 /* Create a function named increaseQuantity that takes in the productId as an argument
   - increaseQuantity should get the correct product based on the productId
   - increaseQuantity should then increase the product's quantity
 */
-
+const increaseQuantity = (productId) => {
+  // get the correct product based on the productId
+  let product2Increase = products.find(item => item.productId === productId);
+  // INCREASE the product's quantity
+  let increase = product2Increase ? product2Increase.quantity += 1: null ; 
+  return increase
+}
 /* Create a function named decreaseQuantity that takes in the productId as an argument
   - decreaseQuantity should get the correct product based on the productId
   - decreaseQuantity should decrease the quantity of the product
   - if the function decreases the quantity to 0, the product is removed from the cart
 */
+const decreaseQuantity = (productId) => {
+  // get the correct product based on the productId
+  let product2Decrease = products.find(toDecrease => toDecrease.productId === productId);
+  // DECREASE the product's quantity
+  let decrease = product2Decrease ? product2Decrease.quantity -= 1: null ; 
+  // if quantity decrease to 0, product is removed from the cart
+  let index = cart.findIndex( toDelete => toDelete.quantity === 0 );
+  if ( index !== -1 ){
+    cart.splice(index, 1);
+  }
+  return cart
+}
 
 /* Create a function named removeProductFromCart that takes in the productId as an argument
   - removeProductFromCart should get the correct product based on the productId
   - removeProductFromCart should update the product quantity to 0
   - removeProductFromCart should remove the product from the cart
 */
+const removeProductFromCart = (productId) => {
+  // get the correct product based on the productId
+  let removeProduct = cart.find(toRemove => toRemove.productId === productId);
+  // update the product quantity to 0
+  removeProduct.quantity = 0;
+  // remove the product from the cart
+  let index = cart.findIndex( toDelete => toDelete.quantity === 0 );
+  if ( index !== -1 ){
+    cart.splice(index, 1);
+  }
+  return cart
+}
 
 /* Create a function named cartTotal that has no parameters
   - cartTotal should iterate through the cart to get the total of all products
