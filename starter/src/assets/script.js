@@ -24,7 +24,7 @@ products.push(
     image: './images/orange.jpg'
   },
   { 
-    name: 'Cherry',
+    name: 'Strawberry',
     price: 3,
     quantity: 0,
     productId: 003, 
@@ -44,7 +44,24 @@ const cart = [];
   - addProductToCart should then increase the product's quantity
   - if the product is not already in the cart, add it to the cart
 */
-
+const addProductToCart = (productId) => {
+  // get the correct product based on the productId
+  let product = products.find(e => e.productId === productId);
+  // then increase the product's quantity by 1
+  product.quantity = product.quantity + 1;
+  // if the product is not already in the cart, add it to the cart
+  console.log(cart); 
+  if (cart.length == 0) {
+    cart.push(product);
+  } else if (cart.length > 0) {
+    cart.filter(cartItem => {
+      if (cartItem.productId !== product.productId) {
+        cart.push(product);
+      }
+    })
+  } 
+  return product
+}
 /* Create a function named increaseQuantity that takes in the productId as an argument
   - increaseQuantity should get the correct product based on the productId
   - increaseQuantity should then increase the product's quantity
