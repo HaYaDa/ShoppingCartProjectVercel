@@ -13,21 +13,21 @@ products.push(
     name: 'Cherry',
     price: 1,
     quantity: 0,
-    productId: 001, 
+    productId: 1, 
     image: './images/cherry.jpg'
   },
   { 
     name: 'Orange',
     price: 2,
     quantity: 0,
-    productId: 002, 
+    productId: 2, 
     image: './images/orange.jpg'
   },
   { 
     name: 'Strawberry',
     price: 3,
     quantity: 0,
-    productId: 003, 
+    productId: 3, 
     image: './images/strawberry.jpg'
   }
 )
@@ -44,7 +44,7 @@ const cart = [];
   - addProductToCart should then increase the product's quantity
   - if the product is not already in the cart, add it to the cart
 */
-const addProductToCart = (productId) => {
+const addProductToCart = productId => {
   // get the correct product based on the productId
   let product = products.find(item => item.productId === productId);
   // then increase the product's quantity by 1
@@ -57,10 +57,11 @@ const addProductToCart = (productId) => {
   return cart;
 }
 /* Create a function named increaseQuantity that takes in the productId as an argument
-  - increaseQuantity should get the correct product based on the productId
+  - increaseQuantity should get
+   the correct product based on the productId
   - increaseQuantity should then increase the product's quantity
 */
-const increaseQuantity = (productId) => {
+const increaseQuantity = productId => {
   // get the correct product based on the productId
   let product2Increase = products.find(item => item.productId === productId);
   // INCREASE the product's quantity
@@ -72,7 +73,7 @@ const increaseQuantity = (productId) => {
   - decreaseQuantity should decrease the quantity of the product
   - if the function decreases the quantity to 0, the product is removed from the cart
 */
-const decreaseQuantity = (productId) => {
+const decreaseQuantity = productId => {
   // get the correct product based on the productId
   let product2Decrease = products.find(toDecrease => toDecrease.productId === productId);
   // DECREASE the product's quantity
@@ -90,7 +91,7 @@ const decreaseQuantity = (productId) => {
   - removeProductFromCart should update the product quantity to 0
   - removeProductFromCart should remove the product from the cart
 */
-const removeProductFromCart = (productId) => {
+const removeProductFromCart = productId => {
   // get the correct product based on the productId
   let removeProduct = cart.find(toRemove => toRemove.productId === productId);
   // update the product quantity to 0
@@ -107,13 +108,28 @@ const removeProductFromCart = (productId) => {
   - cartTotal should iterate through the cart to get the total of all products
   - cartTotal should return the sum of the products in the cart
 */
+const cartTotal = () => {
+  // iterate through the cart to GET THE TOTAL of all products
+  let total = cart.reduce((currentTotal, item ) => {
+    // return the sum of the products in the cart
+    return (item.price * item.quantity) + currentTotal
+  }, 0)
+  return total;
+}
 
 /* Create a function called emptyCart that empties the products from the cart */
+const emptyCart = () => {
+  cart.length = 0; 
+  return cart
+}
 
 /* Create a function named pay that takes in an amount as an argument
   - pay will return a negative number if there is a remaining balance
   - pay will return a positive number if money should be returned to customer
 */
+const pay = amount => {
+  return amount - cartTotal()
+}
 
 /* Place stand out suggestions here (stand out suggestions can be found at the bottom of the project rubric.)*/
 
